@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>가입 완료 · 먹스닥</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/signup.css"></head>
+<body class="su" data-root="">
+<main>
+  <h1 class="t">회원가입</h1><p class="st">먹스닥과 함께 더 똑똑한 외식을 시작하세요!</p>
+  <div class="stp"><div class="s done"><i>✓</i>본인인증</div><span class="ln"></span><div class="s done"><i>✓</i>정보 입력</div><span class="ln"></span><div class="s on"><i>3</i>가입 완료</div></div>
+  <div class="done"><div class="ci">✓</div><h2>가입이 완료되었어요!</h2><p id="hi"></p><p>먹스닥에서 맞춤 혜택과 포인트를 만나보세요.</p></div>
+  <div class="sm"><div><span>아이디</span><b id="d1"></b></div><div><span>이름</span><b id="d2"></b></div><div><span>가입 유형</span><b id="d3"></b></div></div>
+  <button class="cta" id="st">먹스닥 시작하기</button>
+</main>
+<script src="assets/common.js"></script>
+<script>
+MK.init({public:true});
+let s={};try{s=JSON.parse(sessionStorage.getItem('mk_su'))||{}}catch(e){}
+if(!s.done)location.replace('signup.html');
+else{hi.textContent=s.done.name+'님, 환영해요!';d1.textContent=s.done.id;d2.textContent=s.done.name;d3.textContent=s.done.role==='owner'?'점주':'소비자';
+  st.onclick=()=>{try{sessionStorage.removeItem('mk_su')}catch(e){}location.href=s.done.role==='owner'?'owner/dashboard.html':'user/market.html'}}
+</script>
+</body></html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>홈 · 머스닥</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css"></head>
+<body data-root="">
+<main>
+<h1 id="hi"></h1><p class="sub" id="desc"></p>
+<a class="btn" id="go">바로 시작하기</a>
+<h2>오늘의 먹스닥 지수</h2><div class="card"><div class="big" id="idx"></div><p class="sub">전일 대비 <span class="up">▲ 12.7%</span></p></div>
+<script>const r=MK.role(),u=r==="owner";
+hi.textContent=u?"우리 가게 수요를 확인하세요":"오늘 뭐 먹을래요?";
+desc.textContent=u?"지금 모인 수요에 혜택을 제안해 손님을 만나세요.":"먹고 싶은 음식을 올리면 가게들이 혜택을 보내요.";
+go.href=u?"owner/dashboard.html":"user/market.html";idx.textContent=MK.data.index;</script>
+</main>
+<script src="assets/common.js"></script>
+<script>MK.init({});MK.chips&&MK.chips()</script>
+</body></html>

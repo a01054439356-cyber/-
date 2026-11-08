@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>내 프로필 · 머스닥</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css"></head>
+<body data-root="">
+<main>
+<h1>내 프로필</h1>
+<div class="card"><div class="row"><b>drywdo</b><span class="tag o" id="rl"></span></div><p class="sub">동국대학교 · 계정 정보</p></div>
+<div class="card row"><span>알림 설정</span><span class="sub">켜짐</span></div>
+<div class="card row"><span>이용 내역</span><span class="sub">0건</span></div>
+<button class="btn ghost" onclick="MK.logout()">로그아웃</button>
+<script>rl.textContent=MK.role()==="owner"?"점주":"소비자"</script>
+</main>
+<script src="assets/common.js"></script>
+<script>MK.init({});MK.chips&&MK.chips()</script>
+</body></html>

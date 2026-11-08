@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>회원정보 입력 · 먹스닥</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css"><link rel="stylesheet" href="assets/signup.css"></head>
+<body class="su" data-root="">
+<main>
+  <h1 class="t">회원가입</h1><p class="st">먹스닥과 함께 더 똑똑한 외식을 시작하세요!</p>
+  <section class="bn"><div class="fe"><svg viewBox="0 0 24 24"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M12 9v12M3 13h18M12 9C9 9 7 7.500 8 6s3 0 4 3c1-3 3-4.500 4-3s-1 3-4 3z"/></svg>맞춤 외식 제안</div><div class="fe"><svg viewBox="0 0 24 24"><path d="M3 8l4 3 5-6 5 6 4-3-2 11H5z"/></svg>할인 혜택</div><div class="fe"><svg viewBox="0 0 24 24"><ellipse cx="10" cy="8" rx="6" ry="2.500"/><path d="M4 8v4c0 1.400 2.700 2.500 6 2.500s6-1.100 6-2.500V8M4 12v4c0 1.400 2.700 2.500 6 2.500s6-1.100 6-2.500v-4"/></svg>포인트 적립</div><div class="ph">M</div></section>
+  <div class="stp"><div class="s done"><i>✓</i>본인인증</div><span class="ln"></span><div class="s on"><i>2</i>정보 입력</div><span class="ln"></span><div class="s"><i>3</i>가입 완료</div></div>
+
+  <div class="sec">회원정보 입력</div>
+  <div class="chips" data-single style="margin:0 0 12px"><button class="chip on" data-r="user">소비자</button><button class="chip" data-r="owner">점주</button></div>
+  <div class="row"><label><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.400 3.600-7 8-7s8 2.600 8 7"/></svg>이름</label><div class="fi"><label class="in" id="x_nm"><input id="nm" maxlength="20" placeholder="이름을 입력하세요" autocomplete="off"></label></div></div>
+  <div class="row"><label><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>이메일</label><div class="fi"><label class="in" id="x_em"><input id="em" type="email" placeholder="이메일을 입력하세요" autocomplete="off"></label></div></div>
+  <div class="row"><label><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.400 3.600-7 8-7s8 2.600 8 7"/></svg>아이디</label><div class="fi"><label class="in" id="x_id"><input id="uid" maxlength="20" placeholder="영문·숫자 4~20자" autocomplete="off"></label><button class="gb gray" id="dup" type="button">중복확인</button></div></div>
+  <div class="rs"><div class="msg" id="mid"></div></div>
+  <div class="row"><label><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3M12 15v2"/></svg>비밀번호</label><div class="fi"><label class="in" id="x_pw"><input id="pw" type="password" placeholder="영문·숫자·특수문자 8자 이상" autocomplete="new-password"><span class="eye" data-e="pw">👁</span></label></div></div>
+  <div class="row"><label><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3M12 15v2"/></svg>비밀번호 확인</label><div class="fi"><label class="in" id="x_pw2"><input id="pw2" type="password" placeholder="비밀번호를 다시 입력하세요" autocomplete="new-password"><span class="eye" data-e="pw2">👁</span></label></div></div>
+  <div class="msg" id="m2" style="margin:4px 2px 12px"></div>
+
+  <button class="cta" id="go">회원가입</button>
+  <p class="lg">이미 계정이 있으신가요? <a href="index.html">로그인하기</a></p>
+</main>
+<script src="assets/common.js"></script>
+<script>
+MK.init({public:true,back:true});MK.chips&&MK.chips();
+const S=()=>{try{return JSON.parse(sessionStorage.getItem('mk_su'))||{}}catch(e){return {}}};
+if(!S().verified)location.replace('signup.html');   // 본인인증 전에는 1단계로
+const acc=()=>{try{return JSON.parse(localStorage.getItem('mk_accounts'))||[]}catch(e){return []}};
+const TAKEN=['admin','test','muksdaq','master','owner'];   // 이미 사용 중인 샘플 아이디
+let idOk='';
+const f=(id,bad)=>document.getElementById('x_'+id).classList.toggle('bad',bad);
+['nm','em','uid','pw','pw2'].forEach(k=>document.getElementById(k).addEventListener('input',()=>{f(k==='uid'?'id':k,false);m2.textContent=''}));
+uid.addEventListener('input',()=>{idOk='';mid.textContent='';dup.classList.add('gray');dup.classList.remove('on');dup.textContent='중복확인'});
+document.querySelectorAll('.eye').forEach(e=>e.onclick=()=>{const i=document.getElementById(e.dataset.e);i.type=i.type==='password'?'text':'password';e.style.opacity=i.type==='password'?1:.5});
+dup.onclick=()=>{const v=uid.value.trim();mid.className='msg';
+  if(!/^[a-zA-Z0-9]{4,20}$/.test(v)){f('id',true);mid.textContent='아이디는 영문·숫자 4~20자로 입력해 주세요.';return}
+  if(TAKEN.includes(v.toLowerCase())||acc().some(a=>a.id.toLowerCase()===v.toLowerCase())){f('id',true);mid.textContent='이미 사용 중인 아이디예요.';return}
+  idOk=v;f('id',false);dup.classList.remove('gray');dup.classList.add('on');dup.textContent='확인완료';mid.className='msg ok';mid.textContent='사용할 수 있는 아이디예요.'};
+go.onclick=()=>{let first='';const bad=(id,m)=>{f(id,true);if(!first)first=m};
+  const n=nm.value.trim(),e=em.value.trim();
+  if(n.length<2)bad('nm','이름을 2자 이상 입력해 주세요.');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e))bad('em','이메일 형식을 확인해 주세요.');
+  if(!idOk||idOk!==uid.value.trim())bad('id',/^[a-zA-Z0-9]{4,20}$/.test(uid.value.trim())?'아이디 중복확인을 해 주세요.':'아이디는 영문·숫자 4~20자로 입력해 주세요.');
+  if(!(pw.value.length>=8&&/[a-zA-Z]/.test(pw.value)&&/\d/.test(pw.value)&&/[^a-zA-Z0-9]/.test(pw.value)))bad('pw','비밀번호는 영문·숫자·특수문자를 포함해 8자 이상이어야 해요.');
+  if(pw2.value!==pw.value||!pw2.value)bad('pw2','비밀번호가 서로 달라요.');
+  if(first){m2.textContent=first;if(!idOk)mid.textContent='';return}
+  const s=S(),role=document.querySelector('.chip.on').dataset.r,A=acc();
+  A.push({id:idOk,name:n,email:e,phone:s.phone,carrier:s.carrier,role,marketing:!!(s.terms&&s.terms.c),at:Date.now()});   // 비밀번호는 저장하지 않아요
+  try{localStorage.setItem('mk_accounts',JSON.stringify(A));localStorage.setItem('mk_uid',idOk);localStorage.setItem('mk_ident',JSON.stringify({name:n,phone:s.phone}));localStorage.setItem('mk_role',role);
+    sessionStorage.setItem('mk_su',JSON.stringify({...s,done:{id:idOk,name:n,role}}))}catch(x){}
+  location.href='signup-done.html'};
+</script>
+</body></html>
