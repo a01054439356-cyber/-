@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>로그인 · 머스닥</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css"></head>
+<body class="login" data-root="">
+<main>
+<h1 style="margin-top:60px">오늘 뭐 먹을래?<br><span class="main">머스닥</span>에서 거래하세요</h1>
+<p class="sub" style="font-size:13px">소비자가 음식점을 찾는 시장에서,<br>음식점이 소비자를 찾는 시장으로</p>
+<h2>어떤 계정으로 들어갈까요?</h2>
+<div class="chips" data-single style="margin-bottom:16px"><button class="chip on" data-r="user">소비자</button><button class="chip" data-r="owner">점주</button></div>
+<input id="id" placeholder="아이디"><input id="pw" type="password" placeholder="비밀번호">
+<button class="btn" id="go">로그인</button>
+<p style="text-align:center;margin:16px 0 0;font-size:14px;color:#666">아직 계정이 없나요? <a href="signup.html" style="color:var(--main);font-weight:900;text-decoration:none">회원가입</a></p>
+<script>document.getElementById("go").onclick=()=>{const r=document.querySelector(".chip.on").dataset.r;localStorage.setItem("mk_role",r);location.href=r==="owner"?"owner/dashboard.html":"user/market.html"}</script>
+</main>
+<script src="assets/common.js"></script>
+<script>MK.init({public:true});MK.chips&&MK.chips()</script>
+</body></html>
